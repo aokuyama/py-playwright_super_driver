@@ -10,3 +10,4 @@ services:
     working_dir: /var/task
     environment:
       - USER_DOWNLOAD_DIR=/user/download/
+      - WS_ENDPOINT=${WS_ENDPOINT:-ws://host.docker.internal:8080/ws}
