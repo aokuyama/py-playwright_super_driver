@@ -6,4 +6,7 @@ services:
     tty: true
     volumes:
         - ./playwright_super_driver:/var/task
+        - ./tmp:/user/download
     working_dir: /var/task
+    environment:
+      - USER_DOWNLOAD_DIR=/user/download/
