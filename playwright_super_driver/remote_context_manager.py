@@ -1,37 +1,17 @@
-# Copyright (c) Microsoft Corporation.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import asyncio
-from typing import Any
 
 from greenlet import greenlet
 
 from playwright._impl._api_types import Error
 from playwright._impl._connection import Connection
-from playwright._impl._driver import compute_driver_executable
 from playwright._impl._object_factory import create_remote_object
 from playwright._impl._playwright import Playwright
-from playwright._impl._transport import PipeTransport
 from playwright.sync_api._generated import Playwright as SyncPlaywright
 from playwright._impl._transport import WebSocketTransport
 
+from playwright.sync_api._context_manager import PlaywrightContextManager
 
-class PlaywrightRemoteContextManager:
-    def __init__(self, ws_endpoint) -> None:
-        self._playwright: SyncPlaywright
-        self._ws_endpoint = ws_endpoint
-
+class PlaywrightRemoteContextManager(PlaywrightContextManager):
     def __enter__(self) -> SyncPlaywright:
         loop: asyncio.AbstractEventLoop
         own_loop = None
@@ -57,7 +37,7 @@ Please use the Async API instead."""
         self._connection = Connection(
             dispatcher_fiber,
             create_remote_object,
-            WebSocketTransport(loop, self._ws_endpoint),
+            WebSocketTransport(loop, self.ws_endpoint),
             loop,
         )
 
@@ -74,12 +54,7 @@ Please use the Async API instead."""
         playwright.stop = self.__exit__  # type: ignore
         return playwright
 
-    def start(self) -> SyncPlaywright:
-        return self.__enter__()
-
-    def __exit__(self, *args: Any) -> None:
-        self._connection.stop_sync()
-
-
 def sync_playwright_remote(ws_endpoint) -> PlaywrightRemoteContextManager:
-    return PlaywrightRemoteContextManager(ws_endpoint)
+    m = PlaywrightRemoteContextManager()
+    m.ws_endpoint = ws_endpoint
+    return m
