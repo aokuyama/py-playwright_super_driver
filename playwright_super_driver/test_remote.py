@@ -3,5 +3,6 @@ from script import Script
 
 driver = PlaywrightRemoteDriver()
 script = Script()
-
-driver.run(script)
+response = {}
+option = {}
+driver.run(script, response, option)

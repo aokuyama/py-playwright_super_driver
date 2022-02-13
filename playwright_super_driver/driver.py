@@ -9,13 +9,13 @@ class PlaywrightSuperDriver:
         self.browser = None
         self.page = None
 
-    def run(self, script):
+    def run(self, script, response=None, option=None):
         script.driver = self
         args = self.args()
         with sync_playwright() as p:
             self.browser = p.chromium.launch(
                 headless=True, downloads_path="/tmp", args=args)
-            script.exec()
+            script.exec(response, option)
             self.browser.close()
 
     def get_page(self) -> Page:

@@ -3,5 +3,7 @@ from script import Script
 
 driver = PlaywrightSuperDriver()
 script = Script()
-
-driver.run(script)
+response = {}
+option = {}
+driver.run(script, response, option)
+print(response)
