@@ -10,4 +10,6 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 RUN playwright install chromium
 
+COPY ./playwright_super_driver ./
+
 CMD ["lambda_function.lambda_handler"]

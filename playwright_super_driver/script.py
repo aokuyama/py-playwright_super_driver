@@ -3,5 +3,6 @@ class Script:
         self.driver = driver
 
     def exec(self):
-        self.driver.goto("https://google.com")
+        self.driver.goto("https://www.microsoft.com/")
+        print(self.driver.get_page().title())
         self.driver.ss()
