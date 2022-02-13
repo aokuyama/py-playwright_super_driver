@@ -16,7 +16,7 @@ class PlaywrightSuperDriver:
             self.browser = p.chromium.launch(
                 headless=True, downloads_path="/tmp", args=args)
             script.exec(response, option)
-            self.browser.close()
+            self.quit()
 
     def get_page(self) -> Page:
         if not self.page:
@@ -26,11 +26,14 @@ class PlaywrightSuperDriver:
     def goto(self, link):
         self.get_page().goto(link)
 
+    def get(self, link):
+        return self.goto(link)
+
     def screenshot(self, path):
         self.get_page().screenshot(path=path)
 
-    def ss(self):
-        self.screenshot(self.download_path('ss.png'))
+    def ss(self, name="ss.png"):
+        self.screenshot(self.download_path(name))
 
     def download_path(self, file):
         return str(PurePath(self.downloads_dir(), file))
@@ -39,6 +42,9 @@ class PlaywrightSuperDriver:
         dir = os.getenv('USER_DOWNLOAD_DIR', '/tmp')
         os.makedirs(dir, exist_ok=True)
         return dir
+
+    def locator(self, locale):
+        self.get_page().locator(locale)
 
     def args(self):
         return [
@@ -80,3 +86,8 @@ class PlaywrightSuperDriver:
             '--use-mock-keychain',
             '--single-process'
         ]
+
+    def quit(self):
+        if self.browser:
+            self.browser.close()
+            self.browser = None

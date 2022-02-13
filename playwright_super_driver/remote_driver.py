@@ -12,7 +12,7 @@ class PlaywrightRemoteDriver(PlaywrightSuperDriver):
             self.browser = p.chromium.launch(
                 headless=False, downloads_path="/tmp", args=args)
             script.exec(response, option)
-            self.browser.close()
+            self.quit()
 
     def endpoint(self):
         return os.getenv('WS_ENDPOINT', 'ws://127.0.0.1:8080/ws')
