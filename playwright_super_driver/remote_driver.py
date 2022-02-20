@@ -10,7 +10,11 @@ class PlaywrightRemoteDriver(PlaywrightSuperDriver):
         ep = self.endpoint()
         with sync_playwright_remote(ep) as playwright:
             self.playwright = playwright
-            script.exec(response, option)
+            try:
+                script.exec(response, option)
+            except Exception as e:
+                self.dying()
+                raise e
             self.quit()
 
     def is_headless(self):

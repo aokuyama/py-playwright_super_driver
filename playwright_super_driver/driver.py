@@ -16,7 +16,11 @@ class PlaywrightSuperDriver:
         script.driver = self
         with sync_playwright() as playwright:
             self.playwright = playwright
-            script.exec(response, option)
+            try:
+                script.exec(response, option)
+            except Exception as e:
+                self.dying()
+                raise e
             self.quit()
 
     def get_page(self) -> Page:
