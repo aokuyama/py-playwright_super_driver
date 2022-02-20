@@ -3,7 +3,7 @@ import setuptools
  
 setuptools.setup(
     name="playwright_super_driver",
-    version="0.0.1",
+    version="0.0.2",
     author="aokuyama",
     author_email="mail@aokuyama.work",
     description="python playwright sample package",
