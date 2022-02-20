@@ -11,3 +11,7 @@ services:
     environment:
       - USER_DOWNLOAD_DIR=/user/download/
       - WS_ENDPOINT=${WS_ENDPOINT:-ws://host.docker.internal:8080/ws}
+      - PROXY_HOST=${PROXY_HOST:-}
+      - PROXY_PORT=${PROXY_PORT:-}
+      - PROXY_USER=${PROXY_USER:-}
+      - PROXY_PASSWORD=${PROXY_PASSWORD:-}

@@ -32,7 +32,8 @@ class PlaywrightSuperDriver:
     def launch_browser(self):
         args = self.args()
         dir = self.user_data_dir()
-        return self.playwright.chromium.launch_persistent_context(dir, headless=self.is_headless(), downloads_path="/tmp", args=args)
+        proxy = self.proxy_args()
+        return self.playwright.chromium.launch_persistent_context(dir, headless=self.is_headless(), downloads_path="/tmp", args=args, proxy=proxy)
 
     def is_headless(self):
         return True
@@ -110,6 +111,22 @@ class PlaywrightSuperDriver:
             '--use-mock-keychain',
             '--single-process'
         ]
+
+    def proxy_args(self):
+        host = os.getenv('PROXY_HOST')
+        if not host:
+            return None
+        port = os.getenv('PROXY_PORT', '3128')
+        username = os.getenv('PROXY_USER')
+        password = os.getenv('PROXY_PASSWORD')
+        args = {
+            "server": host + ":" + port,
+        }
+        if username:
+            args["username"] = username
+        if password:
+            args["password"] = password
+        return args
 
     def quit(self):
         if self.browser:
