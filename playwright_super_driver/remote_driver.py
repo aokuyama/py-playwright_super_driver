@@ -14,6 +14,7 @@ class PlaywrightRemoteDriver(PlaywrightSuperDriver):
                 script.exec(response, option)
             except Exception as e:
                 self.dying()
+                self.quit()
                 raise e
             self.quit()
 
