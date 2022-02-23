@@ -1,6 +1,6 @@
 FROM public.ecr.aws/lambda/python:3.8
 
-RUN yum -y update && yum -y install libXScrnSaver gtk2 gtk3 alsa-lib.x86_64 alsa-lib-devel
+RUN yum -y update && yum -y install libXScrnSaver gtk2 gtk3 alsa-lib.x86_64 alsa-lib-devel tar
 RUN pip install --upgrade pip setuptools
 
 ENV PLAYWRIGHT_BROWSERS_PATH=/playwright/bin
