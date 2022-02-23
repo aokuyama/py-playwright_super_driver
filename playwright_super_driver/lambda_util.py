@@ -1,6 +1,6 @@
 import os
 import shutil
-
+import glob
 TMP_DIR = '/tmp/bin/'
 
 
@@ -19,3 +19,9 @@ def copy_bin():
         return
 
     shutil.copytree(src, dest)
+
+
+def cleanup():
+    for p in glob.glob('/tmp/' + '*'):
+        if os.path.isfile(p):
+            os.remove(p)
