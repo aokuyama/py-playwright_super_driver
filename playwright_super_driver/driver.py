@@ -38,7 +38,8 @@ class PlaywrightSuperDriver:
         args = self.args()
         dir = self.user_data_dir()
         proxy = self.proxy_args()
-        return self.playwright.chromium.launch_persistent_context(dir, headless=self.is_headless(), downloads_path="/tmp", args=args, proxy=proxy)
+        user_agent = self.user_agent()
+        return self.playwright.chromium.launch_persistent_context(dir, headless=self.is_headless(), downloads_path="/tmp", args=args, proxy=proxy, user_agent=user_agent)
 
     def is_headless(self):
         return True
@@ -132,6 +133,9 @@ class PlaywrightSuperDriver:
         if password:
             args["password"] = password
         return args
+
+    def user_agent(self):
+        return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36'
 
     def quit(self):
         if self.browser:
