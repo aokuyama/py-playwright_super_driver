@@ -20,8 +20,10 @@ def copy_bin():
 
     shutil.copytree(src, dest)
 
+def delete_bin():
+    cleanup(TMP_DIR + '*')
 
-def cleanup():
-    for p in glob.glob('/tmp/' + '*'):
+def cleanup(pathName='/tmp/' + '*'):
+    for p in glob.glob(pathName):
         if os.path.isfile(p):
             os.remove(p)
