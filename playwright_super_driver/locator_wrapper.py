@@ -40,3 +40,6 @@ class Locator():
         for i in range(0, self.count()):
             l.append(self.nth(i))
         return l
+
+    def get_attribute(self, name):
+        return self._locator.get_attribute(name)

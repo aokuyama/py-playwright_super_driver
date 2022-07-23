@@ -50,6 +50,9 @@ class PlaywrightSuperDriver:
     def get(self, link):
         return self.goto(link)
 
+    def go_back(self):
+        self.get_page().go_back()
+
     def screenshot(self, path):
         self.get_page().screenshot(path=path)
 
