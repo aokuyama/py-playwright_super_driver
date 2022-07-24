@@ -61,7 +61,10 @@ class PlaywrightSuperDriver:
 
     def dying(self):
         if self.browser and self.page:
-            self.ss(str(datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")))
+            try:
+                self.ss(str(datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")))
+            except Exception as e:
+                print(e)
 
     def download_path(self, file):
         return str(PurePath(self.downloads_dir(), file))
