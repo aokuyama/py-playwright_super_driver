@@ -11,7 +11,7 @@ def setup_bin():
 
 def copy_bin():
     # playwrightのバイナリを/tmp下にコピーする
-    src = os.environ['PLAYWRIGHT_BROWSERS_PATH_DEFAULT'] or os.environ['PLAYWRIGHT_BROWSERS_PATH']
+    src = os.getenv('PLAYWRIGHT_BROWSERS_PATH_DEFAULT') or os.environ['PLAYWRIGHT_BROWSERS_PATH']
     dest = TMP_DIR
     if src == dest:
         return
