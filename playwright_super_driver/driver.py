@@ -78,6 +78,24 @@ class PlaywrightSuperDriver:
         l = self.get_page().locator(selector)
         return Locator(l)
 
+    def is_checked(self, selector: str) -> Locator:
+        return self.get_page().is_checked(selector)
+
+    def is_disabled(self, selector: str) -> Locator:
+        return self.get_page().is_disabled(selector)
+
+    def is_editable(self, selector: str) -> Locator:
+        return self.get_page().is_editable(selector)
+
+    def is_enabled(self, selector: str) -> Locator:
+        return self.get_page().is_enabled(selector)
+
+    def is_hidden(self, selector: str) -> Locator:
+        return self.get_page().is_hidden(selector)
+
+    def is_visible(self, selector: str) -> Locator:
+        return self.get_page().is_visible(selector)
+
     def user_data_dir(self):
         dir = os.getenv('USER_SESSION_DIR', '/tmp')
         os.makedirs(dir, exist_ok=True)
