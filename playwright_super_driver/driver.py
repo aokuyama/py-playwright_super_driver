@@ -74,6 +74,9 @@ class PlaywrightSuperDriver:
         os.makedirs(dir, exist_ok=True)
         return dir
 
+    def get_page_url(self) -> str:
+        return self.get_page().url
+
     def locator(self, selector: str) -> Locator:
         l = self.get_page().locator(selector)
         return Locator(l)
